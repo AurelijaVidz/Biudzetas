@@ -101,7 +101,7 @@ public class Programa {
 
     }
 
-    // Nuskaito meniu pasirinkimo nr. is ribu intervalo [riba1, riba2] ir grazina pasirinkima; klaidos atveju grazina 0
+    // Nuskaito meniu pasirinkimo nr. is intervalo [riba1, riba2] ir grazina pasirinkima; klaidos atveju grazina 0
     private static int nuskaitytiMeniuPasirinkima(int riba1, int riba2) {
         try {
             meniuPasirinkimas = Integer.parseInt(sc.nextLine().trim());
