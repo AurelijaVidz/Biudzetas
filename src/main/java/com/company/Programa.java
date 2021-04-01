@@ -23,14 +23,14 @@ public class Programa {
 
     public static void main(String[] args) {
         Biudzetas biudzetas = new Biudzetas();
-        boolean arTestiDarba = true, arTestiDarbaIvedimo = true, arTestiDarbaIsvedimo = true;
+        boolean arTestiDarba = true, arTestiDarbaIvedimo = true, arTestiDarbaIsvedimo = true, arTestiDarbaTrynimo = true;
 
         meniu:
         while (arTestiDarba) {
             Spausdinimas.setBiudzetas(biudzetas);
             Spausdinimas.pagrindinioMeniuSpausdinimas();
 
-            switch (nuskaitytiMeniuPasirinkima(1, 3)) {
+            switch (nuskaitytiPasirinkima(1, 4)) {
 
                 // Klaidingai ivestas meniu pasirinkimas - pakartotinai spausdinamas meniu
                 case 0:
@@ -41,7 +41,7 @@ public class Programa {
                     infIvedimoMeniu:
                     while (arTestiDarbaIvedimo) {
                         Spausdinimas.ivedimoMeniuSpausdinimas();
-                        switch (nuskaitytiMeniuPasirinkima(1, 3)) {
+                        switch (nuskaitytiPasirinkima(1, 3)) {
 
                             // Klaidingai ivestas meniu pasirinkimas
                             case 0:
@@ -70,7 +70,7 @@ public class Programa {
                     infGavimoMeniu:
                     while (arTestiDarbaIsvedimo) {
                         Spausdinimas.informacijosGavimoMeniuSpausdinimas();
-                        switch (nuskaitytiMeniuPasirinkima(1, 3)) {
+                        switch (nuskaitytiPasirinkima(1, 3)) {
 
                             // Klaidingai ivestas meniu pasirinkimas
                             case 0:
@@ -86,14 +86,50 @@ public class Programa {
                                 Spausdinimas.islaiduIrasuSpausdinimas();
                                 continue meniu;
 
-                                // Grizimas i pagrindini meniu
+                                // Spausdinamas balansas ir griztama i pagrindini meniu
                             case 3:
+                                Spausdinimas.balansoSpausdinimas();
+                                continue meniu;
+
+                                // Grizimas i pagrindini meniu
+                            case 4:
                                 continue meniu;
                         }
                     }
 
-                    // Pasirinkta '[3] - Baigti darba'
+                    // Pasirinkta '[3] - Trinti irasa'
                 case 3:
+                    int visoIrasu = 0;
+
+                    trynimoMeniu:
+                    while (arTestiDarbaTrynimo) {
+                        Spausdinimas.trynimoMeniuSpausdinimas();
+                        switch (nuskaitytiPasirinkima(1, 2)) {
+                            case 0:
+                                continue trynimoMeniu;
+
+                            case 1:
+                                if (biudzetas.getPajamuSar().size() != 0) {
+                                    Spausdinimas.pajamuIrasuSpausdinimas();
+                                    System.out.println("Pasirinkite pajamu iraso, kuri norite istrinti, nr.");
+                                    biudzetas.trintiPajamuIrasa(nuskaitytiPasirinkima(1, biudzetas.getPajamuSar().size()));
+                                    System.out.println("Pajamu irasas sekmingai istrintas.\n");
+                                }
+                                continue meniu;
+
+                            case 2:
+                                if (biudzetas.getIslaiduSar().size() != 0) {
+                                    Spausdinimas.islaiduIrasuSpausdinimas();
+                                    System.out.println("Pasirinkite islaidu iraso, kuri norite istrinti, nr.");
+                                    biudzetas.trintiIslaiduIrasa(nuskaitytiPasirinkima(1, biudzetas.getIslaiduSar().size()));
+                                    System.out.println("Islaidu irasas sekmingai istrintas.\n");
+                                }
+                                continue meniu;
+                        }
+                    }
+
+                    // Pasirinkta '[4] - Baigti darba'
+                case 4:
                     sc.close();
                     exit(0);
             }
@@ -102,7 +138,7 @@ public class Programa {
     }
 
     // Nuskaito meniu pasirinkimo nr. is intervalo [riba1, riba2] ir grazina pasirinkima; klaidos atveju grazina 0
-    private static int nuskaitytiMeniuPasirinkima(int riba1, int riba2) {
+    private static int nuskaitytiPasirinkima(int riba1, int riba2) {
         try {
             meniuPasirinkimas = Integer.parseInt(sc.nextLine().trim());
             if (meniuPasirinkimas < riba1 || meniuPasirinkimas > riba2)
@@ -144,7 +180,7 @@ public class Programa {
 
         while (arTestiIvedima) {
             Spausdinimas.pajamuKategorijosMeniuSpausdinimas();
-            kategorija = nuskaitytiMeniuPasirinkima(1, PajamuKategorija.values().length);
+            kategorija = nuskaitytiPasirinkima(1, PajamuKategorija.values().length);
 
             if (kategorija == 0)
                 continue;
@@ -156,7 +192,7 @@ public class Programa {
 
         while (arTestiIvedima) {
             Spausdinimas.arIBankaMeniuSpausdinimas();
-            switch (nuskaitytiMeniuPasirinkima(1, 2)) {
+            switch (nuskaitytiPasirinkima(1, 2)) {
                 case 0:
                     continue;
                 case 1:
@@ -205,7 +241,7 @@ public class Programa {
 
         while (arTestiIvedima) {
             Spausdinimas.islaiduKategorijosMeniuSpausdinimas();
-            switch (nuskaitytiMeniuPasirinkima(1, IslaiduKategorija.values().length)) {
+            switch (nuskaitytiPasirinkima(1, IslaiduKategorija.values().length)) {
                 case 0:
                     continue;
                 case 1:
@@ -228,7 +264,7 @@ public class Programa {
 
         while (arTestiIvedima) {
             Spausdinimas.atsiskaitymoBudoMeniuSpausdinimas();
-            switch (nuskaitytiMeniuPasirinkima(1, 2)) {
+            switch (nuskaitytiPasirinkima(1, 2)) {
                 case 0:
                     continue;
                 case 1:

@@ -42,15 +42,19 @@ public class IslaiduIrasas {
                 if (j == 0) {
                     str += String.format("%" + (73 - str.length() + 25) + "s\n", papildomaInfoSkaidyta.substring(j, i));
                 } else {
-                    str += String.format("%98s\n", papildomaInfoSkaidyta.substring(j + 1, i));
+                    str += String.format("%103s\n", papildomaInfoSkaidyta.substring(j + 1, i));
                 }
                 j = i;
             }
-            str += String.format("%98s", papildomaInfoSkaidyta.substring(i + 1, papildomaInfoSkaidyta.length()));
+            str += String.format("%103s", papildomaInfoSkaidyta.substring(i + 1, papildomaInfoSkaidyta.length()));
         } else {
             str += String.format("%" + (73 - str.length() + 25) + "s\n", papildomaInfo);
         }
 
         return str;
+    }
+
+    public double getSuma() {
+        return suma;
     }
 }
