@@ -24,22 +24,6 @@ public class PajamuIrasas {
         return suma;
     }
 
-    public LocalDate getData() {
-        return data;
-    }
-
-    public int getKategorija() {
-        return kategorija;
-    }
-
-    public boolean isPozymisArIBanka() {
-        return pozymisArIBanka;
-    }
-
-    public String getPapildomaInfo() {
-        return papildomaInfo;
-    }
-
     @Override
     public String toString() {
         DateTimeFormatter datosFormatas = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -54,7 +38,7 @@ public class PajamuIrasas {
             pozymisArIBankaSimbolis = "✗";
 
         // Visu kintamuju, isskyrus papildomos inf. suliejimas i tekstine eilute
-        String str = String.format("%-12s %-12s %-15s %-8s", data.format(datosFormatas).toString(), Double.toString(suma), kategorijaZodine, pozymisArIBankaSimbolis);
+        String str = String.format("%-12s %-12s %-15s %-8s", data.format(datosFormatas), suma, kategorijaZodine, pozymisArIBankaSimbolis);
 
         // Papildomos informacijos skaidymas
         if (papildomaInfo.length() > 25) {
@@ -66,15 +50,15 @@ public class PajamuIrasas {
                 if (j == 0) {
                     str += String.format("%25s\n", papildomaInfoSkaidyta.substring(j, i));
                 } else {
-                    str += String.format("%75s\n", papildomaInfoSkaidyta.substring(j + 1, i));
+                    str += String.format("%80s\n", papildomaInfoSkaidyta.substring(j + 1, i));
                 }
                 j = i;
             }
-            str += String.format("%75s", papildomaInfoSkaidyta.substring(i + 1, papildomaInfoSkaidyta.length()));
+            str += String.format("%80s", papildomaInfoSkaidyta.substring(i + 1, papildomaInfoSkaidyta.length()));
         } else {
             str += String.format("%25s", papildomaInfo);
         }
 
-        return str;
+        return str + "\n";
     }
 }

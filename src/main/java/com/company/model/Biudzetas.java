@@ -1,34 +1,43 @@
 package com.company.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Biudzetas {
-    private PajamuIrasas pajamos[] = new PajamuIrasas[100];
-    private IslaiduIrasas islaidos[] = new IslaiduIrasas[100];
-    private short pajamuIrasuSk = 0;
-    private short islaiduIrasuSk = 0;
+    private List<PajamuIrasas> pajamuSar = new ArrayList<>();
+    private List<IslaiduIrasas> islaiduSar = new ArrayList<>();
 
     public void pridetiPajamuIrasa(PajamuIrasas naujosPajamos) {
-        pajamos[pajamuIrasuSk] = naujosPajamos;
-        pajamuIrasuSk++;
+        pajamuSar.add(naujosPajamos);
     }
 
     public void pridetiIslaiduIrasa(IslaiduIrasas naujosIslaidos) {
-        islaidos[islaiduIrasuSk] = naujosIslaidos;
-        islaiduIrasuSk++;
+        islaiduSar.add(naujosIslaidos);
     }
 
-    public PajamuIrasas gautiPajamuIrasa(int i) {
-        return pajamos[i];
+    public void trintiPajamuIrasa(int i) {
+        pajamuSar.remove(i - 1);
     }
 
-    public IslaiduIrasas gautiIslaiduIrasa(int i) {
-        return islaidos[i];
+    public void trintiIslaiduIrasa(int i) {
+        islaiduSar.remove(i - 1);
     }
 
-    public short gautiPajamuIrasuSk() {
-        return pajamuIrasuSk;
+    public List<PajamuIrasas> getPajamuSar() {
+        return pajamuSar;
     }
 
-    public short gautiIslaiduIrasuSk() {
-        return islaiduIrasuSk;
+    public List<IslaiduIrasas> getIslaiduSar() {
+        return islaiduSar;
+    }
+
+    public double balansas() {
+        double balansas = pajamuSar.stream()
+                .map((irasas) -> irasas.getSuma())
+                .reduce(0., (pajamos, pajIrasas) -> pajamos + pajIrasas)
+                - islaiduSar.stream()
+                .map((irasas) -> irasas.getSuma())
+                .reduce(0., (islaidos, islIrasas) -> islaidos + islIrasas);
+        return balansas;
     }
 }
